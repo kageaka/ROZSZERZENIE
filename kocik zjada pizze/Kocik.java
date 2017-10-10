@@ -12,7 +12,8 @@ public class Kocik extends Actor
     int stanKota = SIEDZACY;
     int punkty = 0;
     boolean tanczyc = false;
-    
+    boolean spanie = false;
+   
     public void klawisze ()
     {
         if (!Greenfoot.isKeyDown ("right")&&  !Greenfoot.isKeyDown ("left"))
@@ -42,34 +43,61 @@ public class Kocik extends Actor
             removeTouching (Pizza.class);
             punkty ++;
             if (punkty%5 == 0 ) tanczyc = true;
+            if (punkty%11 == 0 ) spanie = true;
+            setImage ("cat-eat.png");
+            Greenfoot.delay (100);
+            setImage ("cat-eat2.png");
+            Greenfoot.delay (100);
+            setImage ("cat-sit.png");
+           
+            
         }
     }
 
     public void wyglad ()
     {
-     
+
         if ( stanKota == W_PRAWO_1 ) setImage ("cat-walk-right.png");
         if ( stanKota == W_PRAWO_2 ) setImage ("cat-walk-right2.png");
         if ( stanKota == W_LEWO_1 )setImage ("cat-walk-left.png");
         if ( stanKota == W_LEWO_2 )setImage ("cat-walk-left2.png");
         if ( stanKota == SIEDZACY )setImage ("cat-sit.png");
     }
-public void pokazPunkty ()
-{
-getWorld().showText ("Punkty:" +punkty, 100, 30);
-}
-public void taniec ()
-{
-if ( tanczyc)
-{
-tanczyc = false;
-setImage ("cat-dance.png");
-Greenfoot.delay ( 100 );
-setImage ("cat-dance-2.png");
-Greenfoot.delay ( 100 );
-setImage ("cat-sit.png");
-}
-}
+
+    public void pokazPunkty ()
+    {
+        getWorld().showText ("Punkty:" +punkty, 100, 30);
+    }
+
+    public void taniec ()
+    {
+        if ( tanczyc)
+        {
+            tanczyc = false;
+            setImage ("cat-dance.png");
+            Greenfoot.delay ( 100 );
+            setImage ("cat-dance-2.png");
+            Greenfoot.delay ( 100 );
+            setImage ("cat-sit.png");
+        }
+    }
+
+    public void spac ()
+    {
+        if (spanie )
+        {
+            spanie = false;
+            setImage ("cat-sleep-1.png");
+            Greenfoot.delay ( 100 );
+            setImage ("cat-sleep-2.png");
+            Greenfoot.delay ( 100 );
+            setImage ("cat-sleep-3.png");
+            Greenfoot.delay ( 100 );
+            setImage ("cat-sleep-4.png");
+            Greenfoot.delay ( 100 );
+            setImage ("cat-sit.png");
+        }	
+    }
 
     public void act() 
     {
@@ -78,6 +106,8 @@ setImage ("cat-sit.png");
         jedzenie ();
         pokazPunkty ();
         taniec ();
+        spac ();
+        
         int y = getY ();
         if (y >= getWorld().getHeight() -1);
     }
